@@ -1,0 +1,18 @@
+services:
+  nginx:
+    container_name: nginx
+    image: nginx
+    build: ./nginx
+    pull_policy: never
+    ports:
+      - "443:443"
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    build: ./wordpress
+    pull_policy: never
+  mariadb:
+    container_name: mariadb
+    image: mariadb
+    build: ./mariadb
+    pull_policy: never

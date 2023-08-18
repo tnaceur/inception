@@ -1,3 +1,17 @@
+volumes:
+  v_maria:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/tnaceur/data/mariadb
+      o: bind
+  v_wp:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/tnaceur/data/wordpress
+      o: bind
+
 networks:
   inception:
     name: inception
@@ -8,21 +22,30 @@ services:
     image: nginx
     build: ./requirements/nginx
     pull_policy: never
+    depends_on:
+      - wordpress
+      - mariadb
     ports:
       - "443:443"
     env_file:
       - .env
     networks:
       - inception
+    volumes:
+      - v_wp:/var/www/html
   wordpress:
     container_name: wordpress
     image: wordpress
     build: ./requirements/wordpress
     pull_policy: never
+    depends_on:
+      - mariadb
     env_file:
       - .env
     networks:
       - inception
+    volumes:
+      - v_wp:/var/www/html
   mariadb:
     container_name: mariadb
     image: mariadb
@@ -32,3 +55,5 @@ services:
       - .env
     networks:
       - inception
+    volumes:
+      - v_maria:/var/lib/mysql

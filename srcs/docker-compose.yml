@@ -1,18 +1,34 @@
+networks:
+  inception:
+    name: inception
+
 services:
   nginx:
     container_name: nginx
     image: nginx
-    build: ./nginx
+    build: ./requirements/nginx
     pull_policy: never
     ports:
       - "443:443"
-  wordpress:
-    container_name: wordpress
-    image: wordpress
-    build: ./wordpress
-    pull_policy: never
+    env_file:
+      - .env
+    networks:
+      - inception
+  # wordpress:
+  #   container_name: wordpress
+  #   image: wordpress
+  #   build: ./requirements/wordpress
+  #   pull_policy: never
+  #   env_file:
+  #     - .env
+  #   networks:
+  #     - inception
   mariadb:
     container_name: mariadb
     image: mariadb
-    build: ./mariadb
+    build: ./requirements/mariadb
     pull_policy: never
+    env_file:
+      - .env
+    networks:
+      - inception

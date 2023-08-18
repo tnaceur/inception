@@ -14,15 +14,15 @@ services:
       - .env
     networks:
       - inception
-  # wordpress:
-  #   container_name: wordpress
-  #   image: wordpress
-  #   build: ./requirements/wordpress
-  #   pull_policy: never
-  #   env_file:
-  #     - .env
-  #   networks:
-  #     - inception
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    build: ./requirements/wordpress
+    pull_policy: never
+    env_file:
+      - .env
+    networks:
+      - inception
   mariadb:
     container_name: mariadb
     image: mariadb

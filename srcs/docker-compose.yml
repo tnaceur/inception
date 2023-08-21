@@ -1,11 +1,13 @@
 volumes:
   v_maria:
+    name : v_maria
     driver: local
     driver_opts:
       type: none
       device: /home/tnaceur/data/mariadb
       o: bind
   v_wp:
+    name : v_wp
     driver: local
     driver_opts:
       type: none
